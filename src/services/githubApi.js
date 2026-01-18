@@ -23,7 +23,7 @@ export async function fetchUserRepos(username) {
   try {
     while (hasMorePages) {
       const url = `${GITHUB_API_BASE}/users/${username}/repos?per_page=${PER_PAGE}&page=${page}&sort=updated`;
-      
+
       const response = await fetch(url, {
         headers: {
           'Accept': 'application/vnd.github.v3+json',
@@ -41,13 +41,13 @@ export async function fetchUserRepos(username) {
       }
 
       const data = await response.json();
-      
+
       if (data.length === 0) {
         hasMorePages = false;
       } else {
         repos.push(...data);
         page++;
-        
+
         // If we got less than PER_PAGE results, we're on the last page
         if (data.length < PER_PAGE) {
           hasMorePages = false;
@@ -61,9 +61,12 @@ export async function fetchUserRepos(username) {
       name: repo.name,
       description: repo.description || 'No description available',
       stargazers_count: repo.stargazers_count || 0,
+      forks_count: repo.forks_count || 0,
+      watchers_count: repo.watchers_count || 0,
       language: repo.language || 'Unknown',
       html_url: repo.html_url,
       updated_at: repo.updated_at,
+      topics: repo.topics || [],
     }));
 
   } catch (error) {

@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Galaxy from './components/Galaxy';
 import SearchBar from './components/SearchBar';
+import StatsPanel from './components/StatsPanel';
+import ControlsPanel from './components/ControlsPanel';
+import RepoDetailsPanel from './components/RepoDetailsPanel';
 import { fetchUserRepos } from './services/githubApi';
 import './App.css';
 
@@ -9,11 +12,21 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searched, setSearched] = useState(false);
+  const [selectedRepo, setSelectedRepo] = useState(null);
+  const [filters, setFilters] = useState({
+    languages: [],
+    starRange: { min: 0, max: 10000 }
+  });
+  const [sortBy, setSortBy] = useState('stars');
+  const [animationSpeed, setAnimationSpeed] = useState(1);
+
+  const cameraRef = useRef();
 
   const handleSearch = async (username) => {
     setLoading(true);
     setError(null);
     setRepositories([]);
+    setSelectedRepo(null);
 
     try {
       const repos = await fetchUserRepos(username);
@@ -32,6 +45,25 @@ function App() {
     }
   };
 
+  const handleFilterChange = (newFilters) => {
+    setFilters({
+      languages: newFilters.languages || [],
+      starRange: newFilters.starRange || { min: 0, max: 10000 }
+    });
+    setSortBy(newFilters.sortBy || 'stars');
+    setAnimationSpeed(newFilters.animationSpeed || 1);
+  };
+
+  const handleResetCamera = () => {
+    if (cameraRef.current) {
+      cameraRef.current.reset();
+    }
+  };
+
+  const handleSphereClick = (repo) => {
+    setSelectedRepo(repo);
+  };
+
   return (
     <div className="app">
       <SearchBar
@@ -41,9 +73,36 @@ function App() {
       />
 
       {searched && repositories.length > 0 && (
-        <div className="galaxy-container">
-          <Galaxy repositories={repositories} />
-        </div>
+        <>
+          <StatsPanel
+            repositories={repositories}
+            visible={true}
+          />
+
+          <ControlsPanel
+            repositories={repositories}
+            onFilterChange={handleFilterChange}
+            onResetCamera={handleResetCamera}
+          />
+
+          <div className="galaxy-container">
+            <Galaxy
+              repositories={repositories}
+              filters={filters}
+              sortBy={sortBy}
+              animationSpeed={animationSpeed}
+              onSphereClick={handleSphereClick}
+              cameraRef={cameraRef}
+            />
+          </div>
+
+          {selectedRepo && (
+            <RepoDetailsPanel
+              repo={selectedRepo}
+              onClose={() => setSelectedRepo(null)}
+            />
+          )}
+        </>
       )}
 
       {!searched && !loading && (
