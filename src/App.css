@@ -1,0 +1,117 @@
+.app {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+}
+
+.galaxy-container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.welcome-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  text-align: center;
+  animation: welcomeFadeIn 1s ease-out;
+}
+
+@keyframes welcomeFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(0);
+  }
+}
+
+.welcome-content {
+  background: rgba(15, 15, 35, 0.6);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(100, 200, 255, 0.2);
+  border-radius: 24px;
+  padding: 48px 64px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(100, 200, 255, 0.1);
+}
+
+.welcome-content h2 {
+  font-size: 32px;
+  margin: 0 0 16px 0;
+  background: linear-gradient(135deg, #64c8ff 0%, #a864ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.welcome-content p {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 400px;
+  margin: 0 0 32px 0;
+  line-height: 1.6;
+}
+
+.features {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  background: rgba(100, 200, 255, 0.05);
+  border: 1px solid rgba(100, 200, 255, 0.2);
+  border-radius: 12px;
+  min-width: 120px;
+  transition: all 0.3s ease;
+}
+
+.feature:hover {
+  background: rgba(100, 200, 255, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 4px 20px rgba(100, 200, 255, 0.2);
+}
+
+.feature-icon {
+  font-size: 32px;
+  filter: drop-shadow(0 0 10px rgba(100, 200, 255, 0.3));
+}
+
+.feature span:last-child {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .welcome-content {
+    padding: 32px 24px;
+  }
+
+  .features {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .feature {
+    min-width: 200px;
+  }
+}

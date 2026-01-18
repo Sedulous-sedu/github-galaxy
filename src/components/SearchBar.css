@@ -1,0 +1,209 @@
+.search-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: linear-gradient(to bottom,
+            rgba(10, 10, 30, 0.95) 0%,
+            rgba(10, 10, 30, 0.7) 70%,
+            transparent 100%);
+    backdrop-filter: blur(10px);
+    padding: 30px 20px 60px;
+}
+
+.search-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.title {
+    font-size: 48px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    background: linear-gradient(135deg, #64c8ff 0%, #a864ff 50%, #ff64c8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: titleGlow 3s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.title-icon {
+    font-size: 44px;
+    filter: drop-shadow(0 0 20px rgba(100, 200, 255, 0.6));
+    animation: rotateIcon 20s linear infinite;
+}
+
+@keyframes rotateIcon {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes titleGlow {
+
+    0%,
+    100% {
+        filter: drop-shadow(0 0 20px rgba(100, 200, 255, 0.4));
+    }
+
+    50% {
+        filter: drop-shadow(0 0 30px rgba(168, 100, 255, 0.6));
+    }
+}
+
+.subtitle {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+
+.search-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.input-wrapper {
+    display: flex;
+    gap: 12px;
+    align-items: stretch;
+}
+
+.search-input {
+    flex: 1;
+    background: rgba(15, 15, 35, 0.6);
+    border: 2px solid rgba(100, 200, 255, 0.3);
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 16px;
+    color: #fff;
+    font-family: inherit;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(100, 200, 255, 0.1);
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.search-input:focus {
+    border-color: #64c8ff;
+    box-shadow: 0 0 30px rgba(100, 200, 255, 0.3),
+        inset 0 0 20px rgba(100, 200, 255, 0.05);
+    background: rgba(15, 15, 35, 0.8);
+}
+
+.search-input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.search-button {
+    background: linear-gradient(135deg, #64c8ff 0%, #a864ff 100%);
+    border: none;
+    border-radius: 12px;
+    padding: 16px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(100, 200, 255, 0.3);
+    font-family: inherit;
+    white-space: nowrap;
+}
+
+.search-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(100, 200, 255, 0.5);
+}
+
+.search-button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.search-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.loading-spinner {
+    display: inline-block;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.error-message {
+    max-width: 600px;
+    margin: 16px auto 0;
+    padding: 12px 20px;
+    background: rgba(255, 64, 100, 0.1);
+    border: 1px solid rgba(255, 64, 100, 0.3);
+    border-radius: 8px;
+    color: #ff6b9d;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    animation: errorFadeIn 0.3s ease-out;
+}
+
+@keyframes errorFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.error-icon {
+    font-size: 18px;
+}
+
+.loading-message {
+    max-width: 600px;
+    margin: 16px auto 0;
+    text-align: center;
+}
+
+.loading-text {
+    color: rgba(100, 200, 255, 0.9);
+    font-size: 14px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
